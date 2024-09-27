@@ -2,32 +2,40 @@ using System;
 
 namespace CSharpFoundational
 {
-    internal class ReturnPrice
+    internal class Price
     {
+        static double total = 0;
+        static double minimumSpend = 30.00;
+
+        static double[] items = {15.97, 3.50, 12.25, 22.99, 10.98};
+        static double[] discounts = {0.30, 0.00, 0.10, 0.20, 0.50};
+        
         public static void Main()
         {
-            double total = 0;
-            double minimumSpend = 30.00;
-
-            double[] items = {15.97, 3.50, 12.25, 22.99, 10.98};
-            double[] discounts = {0.30, 0.00, 0.10, 0.20, 0.50};
-
-            Console.WriteLine($"Total: ${total}");
-
-            void GetDiscountedPrice(int itemIndex)
+            for(int i = 0; i < items.Length; i++)
             {
-                return items[itemIndex] * discounts[]
+                total += GetDiscountedPrice(i);
             }
+            
+            if(TotalMeetsMinimum())
+                total -= 5.00;
+            
+            Console.WriteLine($"Total: ${FormatDecimal(total)}");
+        }
+        
+        public static double GetDiscountedPrice(int itemIndex)
+        {
+            return items[itemIndex] - (items[itemIndex] * discounts[itemIndex]);
+        }
 
-            void TotalMeetsMinimum()
-            {
-                // Check if the total meets the minimum
-            }
+        public static bool TotalMeetsMinimum()
+        {
+            return total > minimumSpend;
+        }
 
-            void FormatDecimal(double input)
-            {
-                // Format the double so only 2 decimal places are displayed
-            }
+        public static string FormatDecimal(double input)
+        {
+            return input.ToString().Substring(0,5);
         }
     }
 }
